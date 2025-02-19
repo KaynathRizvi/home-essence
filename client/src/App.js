@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import ProductList from './components/ProductList/ProductList';
 import ProductSearchBar from './components/ProductSearchBar/ProductSearchBar';
 import Footer from './components/Footer/Footer';
-import products from './products';
 
 const App = () => {
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+
+  // Fetch products from backend
+  useEffect(() => {
+    fetch('https://home-essence-server.vercel.app//api/products') // Replace with actual Vercel backend URL
+      .then(response => response.json())
+      .then(data => {
+        setProducts(data);
+        setFilteredProducts(data);
+      })
+      .catch(error => console.error("Error fetching products:", error));
+  }, []);
 
   const handleSearch = (searchCriteria) => {
     const { location, room, price } = searchCriteria;
@@ -26,14 +37,6 @@ const App = () => {
     setFilteredProducts(results);
   };
 
-  const addToCart = (property) => {
-    setCartItems((prevItems) => [...prevItems, property]);
-  };
-
-  const removeFromCart = (index) => {
-    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
-  };
-
   return (
     <Router>
       <div>
@@ -45,8 +48,7 @@ const App = () => {
               <div>
                 <Home />
                 <ProductSearchBar onSearch={handleSearch} />
-                {/* You can use PropertyList here to display filteredProperties */}
-                <ProductList />
+                <ProductList products={filteredProducts} />
               </div>
             }
           />

@@ -1,20 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const products = require('./products');  // Import shared product data
+const products = require('./products'); // Load products from the file
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static images from the 'shared/images' folder
+// Serve images from the server
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Define API route to get product data
+// Serve products via API
 app.get('/api/products', (req, res) => {
-  res.json(products);  // Send products as response
+  res.json(products);
 });
 
-app.listen(8081, () => {
-  console.log("Backend running on http://localhost:8081");
+// Start server
+const PORT = process.env.PORT || 8081;
+app.listen(PORT, () => {
+  console.log(`Backend running on http://localhost:${PORT}`);
 });
