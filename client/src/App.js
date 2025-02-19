@@ -11,9 +11,8 @@ const App = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
-  // Fetch products from backend
   useEffect(() => {
-    fetch('https://home-essence-server.vercel.app//api/products') // Replace with actual Vercel backend URL
+    fetch('/api/products')
       .then(response => response.json())
       .then(data => {
         setProducts(data);
