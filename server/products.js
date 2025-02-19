@@ -1,4 +1,3 @@
-// Image paths will be served by backend from '/images'
 const property_1 = '/images/property_1.jpg';
 const property_2 = '/images/property_2.jpg';
 const property_3 = '/images/property_3.jpg';

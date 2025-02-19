@@ -9,7 +9,7 @@ const ProductList = ({ addToCart }) => {
   const productsToShow = 3;
 
   useEffect(() => {
-    fetch('http://localhost:8081/api/products')
+    fetch('https://home-essence-server.vercel.app/api/products')
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
