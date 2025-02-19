@@ -12,7 +12,7 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    fetch('/api/products')
+    fetch('https://home-essence-server.vercel.app/api/products')
       .then(response => response.json())
       .then(data => {
         setProducts(data);
