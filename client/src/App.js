@@ -11,7 +11,7 @@ const App = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    fetch('https://home-essence-server.vercel.app/api/products')
+    fetch('https://home-essence-server.onrender.com/api/products')
       .then(response => response.json())
       .then(data => {
         setProducts(data);
