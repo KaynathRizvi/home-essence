@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import bg from '../../assests/bg.png';
 import './Home.css';
 

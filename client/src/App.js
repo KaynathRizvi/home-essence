@@ -9,7 +9,6 @@ import Footer from './components/Footer/Footer';
 const App = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     fetch('https://home-essence-server.vercel.app/api/products')
