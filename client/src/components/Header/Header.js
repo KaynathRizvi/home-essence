@@ -11,7 +11,7 @@ const Header = ({ cartItems = [] }) => {
 
   return (
     <nav className="navbar">
-      <h1>Urban Rental</h1>
+      <h1>Home Essence</h1>
       <div className="hamburger" onClick={toggleMenu}>
         <div></div>
         <div></div>

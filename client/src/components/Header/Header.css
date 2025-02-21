@@ -3,15 +3,18 @@
     justify-content: space-between;
     align-items: center;
     background-color: #d8ecf8;
-    padding: 20px 40px; 
+    padding: 10px 40px; 
     position: relative; 
     z-index: 1000; 
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 .navbar h1 {
     margin: 0;
-    font-size: 44px; 
+    font-size: 30px; 
     font-family: var(--font-rubik);
     font-weight: 400;
     color: #374254;
@@ -49,8 +52,8 @@
 }
 
 .hamburger div {
-    width: 25px;
-    height: 3px;
+    width: 20px;
+    height: 2.5px;
     background-color: #333;
     margin: 3px 0;
 }
@@ -112,7 +115,11 @@
     .navbar {
         padding: 10px 20px; 
     }
-       .nav-links {
+    .navbar h1 {
+        font-size: 18px; 
+        font-weight: 400;
+    }
+    .nav-links {
         font-size: 14px;
         position: absolute; 
         top: 100%; 
@@ -123,23 +130,15 @@
         display: none; 
         z-index: 999; 
     }
-
     .nav-links a{
         color: white;
         font-size: 18px;
         font-weight: 100;
     }
-
     .nav-links.show {
         display: block; 
     }
-
     .hamburger {
         display: flex; 
-    }
-
-    .navbar h1 {
-        font-size: 20px; 
-        font-weight: 600;
     }
 }
