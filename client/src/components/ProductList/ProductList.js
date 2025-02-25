@@ -8,10 +8,10 @@ const ProductList = ({ addToCart }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const productsToShow = 3;
 
-  const VERCEL_SERVER_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
+  const RENDER_SERVER_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
 
   useEffect(() => {
-    fetch(`${VERCEL_SERVER_URL}/api/products`)
+    fetch(`${RENDER_SERVER_URL}/api/products`)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
@@ -21,7 +21,7 @@ const ProductList = ({ addToCart }) => {
         console.error('Error fetching products:', error);
         setLoading(false);
       });
-  }, [VERCEL_SERVER_URL]);
+  }, [RENDER_SERVER_URL]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -47,7 +47,7 @@ const ProductList = ({ addToCart }) => {
         {products.slice(currentIndex, currentIndex + productsToShow).map((product) => (
           <div className="product-card" key={product['product-id']}>
             <img
-              src={`${VERCEL_SERVER_URL}${product.product_image}`}
+              src={`${RENDER_SERVER_URL}${product.product_image}`}
               alt={product.product_title}
               className="product-image"
             />
