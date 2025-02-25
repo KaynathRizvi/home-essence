@@ -15,33 +15,13 @@ const ProductSearchBar = ({ onSearch }) => {
     <div className="search-container">
       <div className="search-bar">
         <div className="filter-type">
-          <label>Location</label>
+          <label>Search for Products</label>
           <input
             type="text"
-            placeholder="Mumbai"
+            placeholder="Eg: Table"
             className="search-input"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
-        <div className="filter-type">
-          <label>Room</label>
-          <input
-            type="number"
-            placeholder="2"
-            className="search-input"
-            value={room}
-            onChange={(e) => setRoom(e.target.value)}
-          />
-        </div>
-        <div className="filter-type">
-          <label>Price</label>
-          <input
-            type="text"
-            placeholder="20000₹"
-            className="search-input"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
           />
         </div>
         <button className="search-button" onClick={handleSearch}>
