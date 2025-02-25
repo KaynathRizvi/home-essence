@@ -45,9 +45,9 @@ const ProductList = ({ addToCart }) => {
         }}
       >
         {products.slice(currentIndex, currentIndex + productsToShow).map((product) => (
-          <div className="product-card" key={product['product-id']}>
+          <div className="product-card" key={product['product_id']}>
             <img
-              src={`${RENDER_SERVER_URL}${product.product_image}`}
+              src={`${product.product_image}`}
               alt={product.product_title}
               className="product-image"
             />
