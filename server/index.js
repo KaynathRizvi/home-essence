@@ -1,17 +1,35 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const products = require('./products'); // Load products from the file
+const mysql = require('mysql2/promise'); // Using promise-based mysql2
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Create a MySQL connection pool
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'home-essence',
+  connectionLimit: 10,
+  queueLimit: 0
+});
+
 // Serve static files from the "images" directory
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.get('/api/products', (req, res) => {
-  res.json(products);
+// API endpoint to fetch products from the database
+app.get('/api/products', async (req, res) => {
+  try {
+    // Adjust the table name if necessary (here it's assumed to be "Products")
+    const [rows] = await pool.query('SELECT * FROM products');
+    res.json(rows);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Failed to fetch products' });
+  }
 });
 
 const PORT = process.env.PORT || 8081;

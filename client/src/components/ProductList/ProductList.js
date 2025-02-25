@@ -45,16 +45,16 @@ const ProductList = ({ addToCart }) => {
         }}
       >
         {products.slice(currentIndex, currentIndex + productsToShow).map((product) => (
-          <div className="product-card" key={product.id}>
+          <div className="product-card" key={product['product-id']}>
             <img
-              src={`${VERCEL_SERVER_URL}${product.image}`}
-              alt={product.title}
+              src={`${VERCEL_SERVER_URL}${product.product_image}`}
+              alt={product.product_title}
               className="product-image"
             />
-            <h3 className="product-title">{product.title}</h3>
-            <p className="product-price">Price: ₹{product.price}</p>
+            <h3 className="product-title">{product.product_title}</h3>
+            <p className="product-price">Price: ₹{product.product_price}</p>
             <div className="product-button">
-              <Link to={`/product/${product.id}`}>
+              <Link to={`/product/${product['product-id']}`}>
                 <button className="see-more-button">See More</button>
               </Link>
               <button className="cart-button" onClick={() => addToCart(product)}>
