@@ -7,6 +7,7 @@ const ProductCatalog = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search')?.toLowerCase() || '';
 
