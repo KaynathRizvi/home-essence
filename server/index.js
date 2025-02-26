@@ -35,12 +35,12 @@ app.get('/api/products', async (req, res) => {
 });
 
 // Serve the React app's production build:
-app.use(express.static(path.join(__dirname, '../client/build')));
+/*app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Catch-all route: for any request that doesn't match, serve index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+});*/
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {

@@ -12,7 +12,7 @@ const ProductCatalog = () => {
   const searchQuery = queryParams.get('search')?.toLowerCase() || '';
 
   useEffect(() => {
-    fetch('https://home-essence.onrender.com/api/products')
+    fetch('https://home-essence-server.onrender.com/api/products')
       .then(response => response.json())
       .then(data => {
         setProducts(data);
