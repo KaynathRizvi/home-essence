@@ -2,20 +2,20 @@
     box-sizing: border-box;
   }
   
-.product-container {
+.catalog-container {
     position: relative;
     overflow: hidden;
     font-family: ubuntu;
     margin: 0;
 }
 
-.product-listing {
+.catalog-listing {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.product-card {
+.catalog-card {
     flex: 0 0 calc(33.33% - 40px);
     background-color: #d9dee1; 
     border-radius: 5%;
@@ -27,19 +27,19 @@
     padding: 3%;
 }
 
-.product-image {
+.catalog-image {
     width: 100%; 
     height: 100%; 
     border-radius: 50%;
 }
 
-.product-title{
+.catalog-title{
     text-align: center;
     font-size: 18px;
     font-weight: 500;
 }
 
-.product-title, .product-price, .product-detail{
+.catalog-title, .catalog-price, .catalog-detail{
     margin: 10px 0;
     text-align: center;
 }
@@ -64,16 +64,18 @@
     background-color: #000000; 
 }
 
-
 @media (min-width: 768px) and (max-width: 1200px){
-    .product-container{
+    .catalog-container{
         font-size: 16px;
-        margin-top: 6%;
+        margin: 0;
     }
-    .product-card {
+
+    .catalog-card {
         margin: 15px;
+        flex: 0 0 calc(33.33% - 40px);
     }
-    .product-location, .product-price, .product-room{
+
+    .catalog-price, .catalog-detail{
         font-size: 12px;
     }
     .see-more-button, .cart-button{
@@ -84,22 +86,21 @@
 }
 
 @media (max-width: 768px) and (min-width: 479px){
-    .product-container{
-        font-size: 16px;
-        margin-top: 15%;
+    .catalog-container{
+        margin: 0;
     }
-
-    .product-card {
-        margin: 8px;
+    .catalog-card {
+        flex: 0 0 calc(33.33% - 20px);
+        margin: 10px;
     }
-    .product-title{
+    .catalog-title{
         font-size: 14px;
     }
-    .product-detail{
+    .catalog-detail{
         width: 100%;
         height: 25px;
     }
-    .product-price, .product-detail {
+    .catalog-price, .catalog-detail {
         font-size: 12px;
     }
     .see-more-button, .cart-button{
@@ -109,22 +110,29 @@
 }
 
 @media (max-width: 480px) {
-    .product-container{
-        font-size: 9px;
-        margin-top: 15%;
+    .catalog-container{
+        margin: 0;
     }
-    .product-card {
-        margin: 2px;
+    .catalog-card {
+        flex: 0 0 calc(33.33% - 10px);
+        margin: 5px;
     }
-    .product-title{
+    .catalog-title{
+        font-size: 12px;
+    }
+    .catalog-price, .catalog-detail {
         font-size: 10px;
     }
     .see-more-button, .cart-button{
         padding: 3px 3px;
         font-size: 6px;
     }
-    .product-detail{
+    .catalog-detail{
         width: 100%;
-        height: 20px;
+        height: 35px;
+    }
+    .catalog-title{
+        width: 100%;
+        height: 10px;
     }
 }
