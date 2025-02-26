@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import ProductList from './components/ProductList/ProductList';
 import ProductSearchBar from './components/ProductSearchBar/ProductSearchBar';
+import ProductCatalog from './components/ProductCatalog/ProductCatalog'; // Import your new component
 import Footer from './components/Footer/Footer';
 
 const App = () => {
@@ -20,36 +21,19 @@ const App = () => {
       .catch(error => console.error("Error fetching products:", error));
   }, []);
 
-  const handleSearch = (searchCriteria) => {
-    const { location, room, price } = searchCriteria;
-
-    const results = products.filter((property) => {
-      const matchesLocation =
-        location === '' || property.location.toLowerCase().includes(location.toLowerCase());
-      const matchesRoom = room === '' || property.room === parseInt(room);
-      const matchesPrice = price === '' || property.price <= parseInt(price);
-
-      return matchesLocation && matchesRoom && matchesPrice;
-    });
-
-    setFilteredProducts(results);
-  };
-
   return (
     <Router>
-      <div>
+      <div className="app-container">
         <Header />
         <Routes>
-          <Route
-            path="/"
-            element={
+          <Route path="/" element={
               <div>
                 <Home />
-                <ProductSearchBar onSearch={handleSearch} />
                 <ProductList products={filteredProducts} />
               </div>
-            }
+            } 
           />
+          <Route path="/catalog" element={<ProductCatalog />} />
         </Routes>
         <Footer />
       </div>

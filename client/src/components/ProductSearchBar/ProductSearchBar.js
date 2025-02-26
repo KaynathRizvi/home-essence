@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ProductSearchBar.css';
 import search_button from '../../assests/search.png';
 
-const ProductSearchBar = ({ onSearch }) => {
-  const [location, setLocation] = useState('');
-  const [room, setRoom] = useState('');
-  const [price, setPrice] = useState('');
+const ProductSearchBar = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = () => {
-    onSearch({ location, room, price });
+    // Navigate to the catalog page with the search query as a URL parameter.
+    navigate(`/catalog?search=${encodeURIComponent(searchQuery)}`);
   };
 
   return (
@@ -20,8 +21,8 @@ const ProductSearchBar = ({ onSearch }) => {
             type="text"
             placeholder="Eg: Table"
             className="search-input"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
         <button className="search-button" onClick={handleSearch}>

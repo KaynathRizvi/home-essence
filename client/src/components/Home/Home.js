@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import bg from '../../assests/bg.png';
 import './Home.css';
+import ProductSearchBar from '../ProductSearchBar/ProductSearchBar';
 
 const Home = ({ onSearch, cartItems }) => {
 
@@ -21,6 +22,7 @@ const Home = ({ onSearch, cartItems }) => {
         <div className="bg-container">
           <img src={bg} alt="Urban Rental Background" className="background-image" />
         </div>
+        <ProductSearchBar />
       </header>
     </div>
   );

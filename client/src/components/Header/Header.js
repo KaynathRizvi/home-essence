@@ -29,22 +29,22 @@ const Header = ({ cartItems = [] }) => {
       </div>
       <ul className={`nav-links ${isOpen ? 'show' : ''}`}>
         <li>
-          <Link to="/">Home</Link> {/* Use 'to' instead of 'href' */}
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/about">About Us</Link> {/* Updated link */}
+          <Link to="/about">About Us</Link>
         </li>
         <li>
-          <Link to="/products">Products</Link> {/* Updated link */}
+          <Link to="/catalog">Products</Link>
         </li>
         <li>
-          <Link to="/cart">Cart ({cartItems.length})</Link> {/* Updated link */}
+          <Link to="/cart">Cart ({cartItems.length})</Link>
         </li>
         <li>
-          <Link to="/login">Login</Link> {/* Updated link */}
+          <Link to="/login">Login</Link>
         </li>
         <li>
-          <Link to="/contact">Contact</Link> {/* Updated link */}
+          <Link to="/contact">Contact</Link>
         </li>
       </ul>
     </nav>

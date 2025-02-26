@@ -46,12 +46,9 @@ const ProductList = ({ addToCart }) => {
       >
         {products.slice(currentIndex, currentIndex + productsToShow).map((product) => (
           <div className="product-card" key={product['product_id']}>
-            <img
-              src={`${product.product_image}`}
-              alt={product.product_title}
-              className="product-image"
-            />
+            <img src={`${product.product_image}`} alt={product.product_title} className="product-image" />
             <h3 className="product-title">{product.product_title}</h3>
+            <p className="product-detail">{product.product_detail}</p>
             <p className="product-price">Price: ₹{product.product_price}</p>
             <div className="product-button">
               <Link to={`/product/${product['product-id']}`}>

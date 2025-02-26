@@ -1,10 +1,10 @@
 .search-container {
     display: flex;
-    width: 100vw;
+    width: 100%;
+    top: 30%;
     position: relative;
-    color: black;
-    background-color: #3c3a3c;
-    padding: 20px;
+    color: #1c1b1c;
+    padding: 30px;
     overflow: hidden;
     justify-content: center;
 }
@@ -12,9 +12,9 @@
 .search-bar{
     display: flex;
     flex-direction: row;
-    background-color: #d9dee1;
-    width: 30%;
-    padding: 20px;
+    background-color: #3c3a3c76;
+    width: 100%;
+    padding: 1%;
     border-radius: 8px;
     justify-content: center;
     align-items: center;
@@ -22,32 +22,35 @@
 
 .filter-type{
     margin: 5px;
-    font-family: var(--font-rubik);
-    font-size: 16px;
-    font-weight: 500;
+    font-family: ubuntu;
+    font-size: 18px;
+    font-weight: 400;
 }
 .search-input {
     border: none;
     outline: none;
     padding: 10px;
     border-radius: 4px;
-    width: 90%; 
-    font-size: 16px;
-    font-family: var(--font-rubik);
+    width: 100%; 
+    font-size: 14px;
+    font-family: ubuntu;
 }
 
 .search-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #375969;
+    background-color: #3c3a3c;
     cursor: pointer;
     height: 50px;
-    width: 10%;
+    width: 8%;
     border-radius: 50px;
-    margin: 10px;
+    border: none;
+    margin: 2%;
 }
-
+.search-button:hover{
+    background-color: black;
+}
 .search-icon {
     width: 20px; 
     height: 20px;
@@ -56,17 +59,11 @@
 
 @media (min-width: 768px) and (max-width: 1280px){
     .search-container {
-        padding: 10px; 
         width: 100%;
     }
 
-    .search-bar{
-        width: 60%;
-        padding: 20px;
-    }
-
     .filter-type {
-        font-size: 12px; 
+        font-size: 14px; 
     }
 
     .search-input {
@@ -76,7 +73,7 @@
 
     .search-button {
         height: 40px; 
-        width: 50px;
+        width: 6%;
     }
 
     .search-icon {
@@ -110,6 +107,7 @@
         height: 30px; 
         width: 70px;
     }
+
     .search-icon {
         width: 12px; 
         height: 12px;
@@ -123,7 +121,7 @@
     }
 
     .search-bar{
-        width: 85%;
+        width: 100%;
         padding: 10px;
     }
 
@@ -138,7 +136,7 @@
 
     .search-button {
         height: 30px; 
-        width: 80px;
+        width: 25%;
     }
     .search-icon {
         width: 12px; 

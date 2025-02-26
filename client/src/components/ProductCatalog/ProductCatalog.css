@@ -6,22 +6,21 @@
     position: relative;
     overflow: hidden;
     font-family: ubuntu;
-    margin-top: 5%;
+    margin: 0;
 }
 
 .product-listing {
     display: flex;
-    transition: 'transform 0.9s ease-in-out';
-    padding: 40px; 
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .product-card {
+    flex: 0 0 calc(33.33% - 40px);
     background-color: #d9dee1; 
     border-radius: 5%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 20px;
-    width: 35%;
-    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,32 +63,7 @@
 .see-more-button:hover, .cart-button:hover {
     background-color: #000000; 
 }
-.img-slide {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
 
-.slide-button {
-    background: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 10px;
-    transition: color 0.3s;
-}
-
-.slide-button:disabled {
-    color: #ccc;
-    cursor: not-allowed;
-}
-
-.slide-button:hover:not(:disabled) {
-    color: #007BFF; 
-}
 
 @media (min-width: 768px) and (max-width: 1200px){
     .product-container{
