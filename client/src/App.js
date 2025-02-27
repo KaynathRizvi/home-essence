@@ -6,6 +6,7 @@ import ProductList from './components/ProductList/ProductList';
 import ProductSearchBar from './components/ProductSearchBar/ProductSearchBar';
 import ProductCatalog from './components/ProductCatalog/ProductCatalog';
 import Login from './components/Login/Login'
+import SignUp from './components/SignUp/SignUp'
 import Footer from './components/Footer/Footer';
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
           />
           <Route path="/catalog" element={<ProductCatalog />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
         <Footer />
       </div>
