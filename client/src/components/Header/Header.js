@@ -26,7 +26,7 @@ const Header = ({ user, cartItems = [] }) => {
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <h1>Home Essence</h1>
+      <h1 className='navbar-title'>Home Essence</h1>
       <div className="hamburger" onClick={toggleMenu}>
         <div></div>
         <div></div>

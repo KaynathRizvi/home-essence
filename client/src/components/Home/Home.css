@@ -2,7 +2,7 @@
     box-sizing: border-box;
   }
 
-header {
+.home {
     height: 90vh;
     background-size: contain; 
     color: #374254;
