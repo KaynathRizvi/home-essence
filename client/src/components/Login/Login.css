@@ -8,22 +8,22 @@
     text-align: center;
   }
   
-  h2 {
+  .login-header {
     margin-bottom: 20px;
     color: #333;
   }
   
-  .error {
+  .login-error {
     color: red;
     font-size: 14px;
   }
   
-  form {
+  .login-form {
     display: flex;
     flex-direction: column;
   }
   
-  input {
+  .login-input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -31,7 +31,7 @@
     border-radius: 5px;
   }
   
-  button {
+  .login-button {
     width: 100%;
     padding: 10px;
     background: #007bff;
@@ -42,7 +42,7 @@
     transition: 0.3s;
   }
   
-  button:hover {
+  .login-button:hover {
     background: #0056b3;
   }
   

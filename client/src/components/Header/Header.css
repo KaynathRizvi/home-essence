@@ -51,6 +51,26 @@
     color: #374254;
 }
 
+.profile-container{
+    display: flex;
+    flex-direction: row;
+}
+.profile-name{
+    font-size: 16px;
+    font-family: ubuntu;
+    color: #403e3f;
+    font-weight: 200;
+}
+
+.logout-button{
+    width: 60%;
+    background-color: #403e3f;
+}
+
+.logout-button:hover{
+    background-color: black;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -79,6 +99,11 @@
         padding-right: 10%; 
         gap: 30px;
     }
+
+    .profile-name{
+        font-size: 14px;
+    }
+    
 }
 
 @media (min-width: 480px) and (max-width: 768px) {
@@ -86,6 +111,10 @@
         padding: 10px 20px; 
         height: 100%;
         width: 100%;
+    }
+    .navbar h1 {
+        font-size: 20px; 
+        font-weight: 600;
     }
     .nav-links {
         font-size: 26px;
@@ -116,9 +145,25 @@
         display: flex; 
     }
 
-    .navbar h1 {
-        font-size: 20px; 
-        font-weight: 600;
+    .profile-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .profile-name{
+        font-size: 22px;
+        font-family: ubuntu;
+        color: #d9dee1;
+        width: 100px;
+        padding-bottom: 10%;
+    }
+    
+    .logout-button{
+        width: 100%;
+        background-color: #d9dee1;
+        color: #403e3f;
+        font-size: 20px;
+        font-family: ubuntu;
     }
 }
 
@@ -156,5 +201,24 @@
     }
     .hamburger {
         display: flex; 
+    }
+    .profile-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .profile-name{
+        font-size: 16px;
+        color: #d9dee1;
+        width: 100px;
+        padding-bottom: 10%;
+    }
+    
+    .logout-button{
+        width: 100%;
+        background-color: #d9dee1;
+        color: #403e3f;
+        font-size: 14px;
+        font-family: ubuntu;
     }
 }

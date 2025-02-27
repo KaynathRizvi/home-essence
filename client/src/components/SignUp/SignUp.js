@@ -43,16 +43,17 @@ const SignUp = () => {
 
   return (
     <div className="signup-container">
-      <h2>Signup</h2>
-      {error && <p className="error">{error}</p>}
-      {success && <p className="success">{success}</p>}
-      <form onSubmit={handleSignup}>
+      <h2 className='signup-header'>Signup</h2>
+      {error && <p className="signup-error">{error}</p>}
+      {success && <p className="signup-success">{success}</p>}
+      <form className='signup-form' onSubmit={handleSignup}>
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          className='signup-input'
         />
         <input
           type="email"
@@ -60,6 +61,7 @@ const SignUp = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className='signup-input'
         />
         <input
           type="text"
@@ -67,6 +69,7 @@ const SignUp = () => {
           value={contactNumber}
           onChange={(e) => setContactNumber(e.target.value)}
           required
+          className='signup-input'
         />
         <input
           type="password"
@@ -74,6 +77,7 @@ const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className='signup-input'
         />
         <input
           type="password"
@@ -81,8 +85,9 @@ const SignUp = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
+          className='signup-input'
         />
-        <button type="submit">Signup</button>
+        <button type="submit" className='signup-button'>Signup</button>
       </form>
       <p className="login-link">
         Already have an account? <span onClick={() => navigate('/login')}>Login</span>

@@ -65,7 +65,7 @@
         margin-top: 10%;
     }
     .product-listing {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         margin: 2%;
     }
     
@@ -91,7 +91,7 @@
 @media (max-width: 768px) and (min-width: 480px){
     .product-container{
         font-size: 16px;
-        margin-top: 15%;
+        margin-top: 20%;
     }
 
     .product-listing {
@@ -119,10 +119,41 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 380px) and (max-width: 480px) {
     .product-container{
         font-size: 9px;
-        margin-top: 20%;
+        margin-top: 15%;
+    }
+    .product-listing {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+        margin: 8%;
+    }
+    .product-card {
+        min-width: 120px;
+        padding: 7%;
+    }
+    .product-detail{
+        width: 100%;
+        height: 30px;
+    }
+    .product-title{
+        font-size: 10px;
+    }
+    .see-more-button, .cart-button{
+        padding: 3px 3px;
+        font-size: 6px;
+    }
+    .product-detail{
+        width: 100%;
+        height: 20px;
+    }
+}
+
+@media (max-width: 380px) {
+    .product-container{
+        font-size: 9px;
+        margin-top: 15%;
     }
     .product-listing {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));

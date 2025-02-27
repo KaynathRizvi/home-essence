@@ -9,6 +9,9 @@
     margin: 0;
 }
 
+.catalog-search-bar{
+    width: 100%;
+}
 .catalog-listing {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));

@@ -38,7 +38,7 @@ const ProductCatalog = () => {
 
   return (
     <div className='catalog-container'>
-      <ProductSearchBar />
+      <div className='catalog-search-bar'><ProductSearchBar /></div>
       <Category />
       <div className='catalog-listing'   style={{justifyContent: filteredProducts.length < 3 ? 'center' : 'space-between'}}>
         {filteredProducts.map(product => (

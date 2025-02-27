@@ -18,7 +18,7 @@ const Login = ({ setUser }) => {
     try {
       const response = await axios.post(`${API_URL}/api/login`, {
         user_email: email,
-        user_pass: password, // Sending password directly
+        user_pass: password,
       });
 
       localStorage.setItem('token', response.data.token);
@@ -32,15 +32,16 @@ const Login = ({ setUser }) => {
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
-      {error && <p className="error">{error}</p>}
-      <form onSubmit={handleLogin}>
+      <h2 className='login-header'>Login</h2>
+      {error && <p className="login-error">{error}</p>}
+      <form className='login-form' onSubmit={handleLogin}>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className='login-input'
         />
         <input
           type="password"
@@ -48,8 +49,9 @@ const Login = ({ setUser }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className='login-input'
         />
-        <button type="submit">Login</button>
+        <button type="submit" className='login-button'>Login</button>
       </form>
       <p className="register-link">
         Don't have an account? <span onClick={() => navigate('/signup')}>Register</span>

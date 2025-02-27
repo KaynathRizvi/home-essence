@@ -8,27 +8,27 @@
     text-align: center;
   }
   
-  h2 {
+  .signup-header {
     margin-bottom: 20px;
     color: #333;
   }
   
-  .error {
+  .signup-error {
     color: red;
     font-size: 14px;
   }
   
-  .success {
+  .signup-success {
     color: green;
     font-size: 14px;
   }
   
-  form {
+  .signup-form {
     display: flex;
     flex-direction: column;
   }
   
-  input {
+  .signup-input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -36,7 +36,7 @@
     border-radius: 5px;
   }
   
-  button {
+  .signup-button {
     width: 100%;
     padding: 10px;
     background: #28a745;
@@ -47,7 +47,7 @@
     transition: 0.3s;
   }
   
-  button:hover {
+  .signup-button:hover {
     background: #218838;
   }
   

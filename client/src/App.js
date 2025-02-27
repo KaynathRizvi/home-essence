@@ -12,6 +12,14 @@ import Footer from './components/Footer/Footer';
 const App = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [user, setUser] = useState(localStorage.getItem('user') || null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   useEffect(() => {
     fetch('https://home-essence-server.onrender.com/api/products')
@@ -26,7 +34,7 @@ const App = () => {
   return (
     <Router>
       <div className="app-container">
-        <Header />
+        <Header user={user} />
         <Routes>
           <Route path="/" element={
               <div>
@@ -36,7 +44,7 @@ const App = () => {
             } 
           />
           <Route path="/catalog" element={<ProductCatalog />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
         <Footer />
