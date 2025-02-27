@@ -27,11 +27,10 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(`${API_URL}/api/signup`, {
-        name,
-        email,
-        contact_number: contactNumber,
-        password,
-        confirmPassword,
+        user_name: name,
+        user_email: email,
+        user_contact: contactNumber,
+        user_pass: password,
       });
 
       setSuccess(response.data.message);

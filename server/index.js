@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { Sequelize } = require('sequelize');
 
 const app = express();
@@ -40,24 +42,24 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.post('/api/signup', async (req, res) => {
   try {
-    const { name, email, contact_number, password, confirmPassword } = req.body;
+    const { user_name, user_email, user_contact, user_pass, confirmPassword } = req.body;
 
-    if (password !== confirmPassword) {
+    if (user_pass !== confirmPassword) {
       return res.status(400).json({ error: 'Passwords do not match' });
     }
 
-    const existingUser = await User.findOne({ where: { email } });
+    const existingUser = await User.findOne({ where: { user_email } });
     if (existingUser) {
       return res.status(400).json({ error: 'Email already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(user_pass, 10);
 
     await User.create({
-      name,
-      email,
-      contact_number,
-      password: hashedPassword
+      user_name,
+      user_email,
+      user_contact,
+      user_pass: hashedPassword
     });
 
     res.status(201).json({ message: 'Signup successful' });
@@ -70,23 +72,23 @@ app.post('/api/signup', async (req, res) => {
 // ✅ Login API
 app.post('/api/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { user_email, user_pass } = req.body;
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { user_email } });
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(user_pass, user.user_pass);
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    const token = jwt.sign({ userId: user.id, name: user.name }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ user_id: user.user_id, user_name: user.user_name }, process.env.JWT_SECRET, {
       expiresIn: '1h'
     });
 
-    res.json({ message: 'Login successful', token, name: user.name });
+    res.json({ message: 'Login successful', token, user_name: user.user_name });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: 'Failed to login' });
