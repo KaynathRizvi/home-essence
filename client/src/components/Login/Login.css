@@ -6,6 +6,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
+    font-family: ubuntu;
   }
   
   .login-header {
@@ -34,7 +35,7 @@
   .login-button {
     width: 100%;
     padding: 10px;
-    background: #007bff;
+    background: #3c3a3c;
     color: white;
     border: none;
     border-radius: 5px;
@@ -43,7 +44,7 @@
   }
   
   .login-button:hover {
-    background: #0056b3;
+    background: black;
   }
   
   .register-link {
