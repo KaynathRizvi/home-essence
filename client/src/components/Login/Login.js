@@ -16,15 +16,15 @@ const Login = ({ setUser }) => {
     setError('');
 
     try {
-    const response = await axios.post(`${API_URL}/api/login`, {
+      const response = await axios.post(`${API_URL}/api/login`, {
         user_email: email,
-        user_pass: password
-    });
-    
+        user_pass: password, // Sending password directly
+      });
+
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', response.data.name);
-      setUser(response.data.name); // Set user in state for header display
-      navigate('/'); // Redirect to home after login
+      localStorage.setItem('user', response.data.user_name);
+      setUser(response.data.user_name);
+      navigate('/');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
     }

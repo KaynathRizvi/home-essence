@@ -30,11 +30,11 @@ const SignUp = () => {
         user_name: name,
         user_email: email,
         user_contact: contactNumber,
-        user_pass: password,
+        user_pass: password, // Storing password as plain text
       });
 
       setSuccess(response.data.message);
-      setTimeout(() => navigate('/login'), 2000); // Redirect to login after success
+      setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
     }

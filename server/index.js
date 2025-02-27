@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Sequelize } = require('sequelize');
 
@@ -53,13 +52,11 @@ app.post('/api/signup', async (req, res) => {
       return res.status(400).json({ error: 'Email already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(user_pass, 10);
-
     await User.create({
       user_name,
       user_email,
       user_contact,
-      user_pass: hashedPassword
+      user_pass // Storing password as plain text (Not recommended for production)
     });
 
     res.status(201).json({ message: 'Signup successful' });
@@ -75,12 +72,7 @@ app.post('/api/login', async (req, res) => {
     const { user_email, user_pass } = req.body;
 
     const user = await User.findOne({ where: { user_email } });
-    if (!user) {
-      return res.status(401).json({ error: 'Invalid email or password' });
-    }
-
-    const isMatch = await bcrypt.compare(user_pass, user.user_pass);
-    if (!isMatch) {
+    if (!user || user.user_pass !== user_pass) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
