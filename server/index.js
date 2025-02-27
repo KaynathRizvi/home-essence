@@ -48,13 +48,18 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
+// API endpoint to fetch distinct categories using Sequelize
 app.get('/api/categories', async (req, res) => {
   try {
-    // Using a raw SQL query with DISTINCT:
-    const [rows] = await pool.query('SELECT DISTINCT product_category FROM products');
-    // rows is an array of objects; we extract just the category names
-    const categories = rows.map(row => row.product_category);
-    res.json(categories);
+    const categories = await Product.findAll({
+      attributes: [
+        [Sequelize.fn('DISTINCT', Sequelize.col('product_category')), 'product_category']
+      ],
+      raw: true,
+    });
+    // Map the result to an array of category names
+    const categoryList = categories.map(cat => cat.product_category);
+    res.json(categoryList);
   } catch (error) {
     console.error('Error fetching categories:', error);
     res.status(500).json({ error: 'Failed to fetch categories' });
