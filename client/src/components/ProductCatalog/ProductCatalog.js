@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './ProductCatalog.css';
 import ProductSearchBar from '../ProductSearchBar/ProductSearchBar';
+import Category from '../Category/Category';
 
 const ProductCatalog = () => {
   const [products, setProducts] = useState([]);
@@ -10,6 +11,7 @@ const ProductCatalog = () => {
 
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search')?.toLowerCase() || '';
+  const categoryQuery = queryParams.get('category')?.toLowerCase() || '';
 
   useEffect(() => {
     fetch('https://home-essence-server.onrender.com/api/products')
@@ -24,9 +26,11 @@ const ProductCatalog = () => {
       });
   }, []);
 
-  const filteredProducts = products.filter(product =>
-    product.product_title.toLowerCase().includes(searchQuery)
-  );
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.product_title.toLowerCase().includes(searchQuery);
+    const matchesCategory = product.product_category.toLowerCase().includes(categoryQuery);
+    return matchesSearch && matchesCategory;
+  });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -35,6 +39,7 @@ const ProductCatalog = () => {
   return (
     <div className='catalog-container'>
       <ProductSearchBar />
+      <Category />
       <div className='catalog-listing'   style={{justifyContent: filteredProducts.length < 3 ? 'center' : 'space-between'}}>
         {filteredProducts.map(product => (
           <div className="catalog-card" key={product['product_id']}>

@@ -1,0 +1,25 @@
+.category-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .category-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .category-item {
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #d9dee1;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .category-item:hover {
+    background-color: #c0c0c0;
+  }
+  
