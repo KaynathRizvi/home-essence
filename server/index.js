@@ -28,6 +28,7 @@ const sequelize = new Sequelize(
 
 // Import the Product model from the models folder
 const Product = require('./models/Product')(sequelize);
+const User = require('./models/User')(sequelize);
 
 // Test the database connection (optional)
 sequelize.authenticate()
@@ -36,6 +37,66 @@ sequelize.authenticate()
 
 // Serve static files from the "images" directory
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
+app.post('/api/signup', async (req, res) => {
+  try {
+    const { name, email, contact_number, password, confirmPassword } = req.body;
+
+    if (password !== confirmPassword) {
+      return res.status(400).json({ error: 'Passwords do not match' });
+    }
+
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await User.create({
+      name,
+      email,
+      contact_number,
+      password: hashedPassword
+    });
+
+    res.status(201).json({ message: 'Signup successful' });
+  } catch (error) {
+    console.error('Signup error:', error);
+    res.status(500).json({ error: 'Failed to register user' });
+  }
+});
+
+// ✅ Login API
+app.post('/api/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    const token = jwt.sign({ userId: user.id, name: user.name }, process.env.JWT_SECRET, {
+      expiresIn: '1h'
+    });
+
+    res.json({ message: 'Login successful', token, name: user.name });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Failed to login' });
+  }
+});
+
+// ✅ Logout API
+app.post('/api/logout', (req, res) => {
+  res.json({ message: 'Logout successful' });
+});
 
 // API endpoint to fetch products from the database using Sequelize
 app.get('/api/products', async (req, res) => {

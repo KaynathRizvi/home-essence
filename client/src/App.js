@@ -4,7 +4,8 @@ import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import ProductList from './components/ProductList/ProductList';
 import ProductSearchBar from './components/ProductSearchBar/ProductSearchBar';
-import ProductCatalog from './components/ProductCatalog/ProductCatalog'; // Import your new component
+import ProductCatalog from './components/ProductCatalog/ProductCatalog';
+import Login from './components/Login/Login'
 import Footer from './components/Footer/Footer';
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
             } 
           />
           <Route path="/catalog" element={<ProductCatalog />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
       </div>

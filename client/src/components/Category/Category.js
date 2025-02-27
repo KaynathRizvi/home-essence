@@ -16,7 +16,6 @@ const Category = () => {
 
   const handleChange = (event) => {
     const selectedCategory = event.target.value;
-    // If no category is selected, you might want to navigate to a default page
     if(selectedCategory) {
       navigate(`/catalog?category=${encodeURIComponent(selectedCategory)}`);
     }
