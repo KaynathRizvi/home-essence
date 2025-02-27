@@ -27,18 +27,22 @@ const ProductList = ({ addToCart }) => {
 
   useEffect(() => {
     const updateProductsPerRow = () => {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        const productWidth = 250;
-        const perRow = Math.max(2, Math.floor(containerWidth / productWidth));
-        setProductsPerRow(perRow);
+      if (window.innerWidth >= 1200) {
+        setProductsPerRow(4);
+      } else if (window.innerWidth >= 680) {
+        setProductsPerRow(3);
+      } else if (window.innerWidth >= 340) {
+        setProductsPerRow(2);
+      } else {
+        setProductsPerRow(1);
       }
     };
-
-    updateProductsPerRow();
+  
+    updateProductsPerRow(); 
     window.addEventListener('resize', updateProductsPerRow);
     return () => window.removeEventListener('resize', updateProductsPerRow);
   }, []);
+  
 
   if (loading) {
     return <div>Loading...</div>;
