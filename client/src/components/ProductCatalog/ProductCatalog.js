@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './ProductCatalog.css';
 import ProductSearchBar from '../ProductSearchBar/ProductSearchBar';
 import Category from '../Category/Category';
