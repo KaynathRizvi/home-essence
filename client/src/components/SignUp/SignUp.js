@@ -19,26 +19,27 @@ const SignUp = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
-
+  
+    // Validate password in frontend
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
+  
     try {
       const response = await axios.post(`${API_URL}/api/signup`, {
         user_name: name,
         user_email: email,
         user_contact: contactNumber,
-        user_pass: password, // Storing password as plain text
+        user_pass: password, // No confirmPassword
       });
-
+  
       setSuccess(response.data.message);
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed');
     }
-  };
+  };  
 
   return (
     <div className="signup-container">

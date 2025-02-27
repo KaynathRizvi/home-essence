@@ -41,22 +41,21 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.post('/api/signup', async (req, res) => {
   try {
-    const { user_name, user_email, user_contact, user_pass, confirmPassword } = req.body;
-
-    if (user_pass !== confirmPassword) {
-      return res.status(400).json({ error: 'Passwords do not match' });
-    }
+    const { user_name, user_email, user_contact, user_pass } = req.body;
 
     const existingUser = await User.findOne({ where: { user_email } });
     if (existingUser) {
       return res.status(400).json({ error: 'Email already exists' });
     }
 
+    // Hash the password before storing
+    const hashedPassword = user_pass; // If you're not using bcrypt, directly save the password
+
     await User.create({
       user_name,
       user_email,
       user_contact,
-      user_pass // Storing password as plain text (Not recommended for production)
+      user_pass: hashedPassword
     });
 
     res.status(201).json({ message: 'Signup successful' });
