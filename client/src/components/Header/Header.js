@@ -9,6 +9,9 @@ const Header = ({ user, cartItems = [] }) => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,11 +36,11 @@ const Header = ({ user, cartItems = [] }) => {
         <div></div>
       </div>
       <ul className={`nav-links ${isOpen ? 'show' : ''}`}>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/catalog">Products</Link></li>
-        <li><Link to="/cart">Cart ({cartItems.length})</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/" onClick={closeMenu}>Home</Link></li>
+        <li><Link to="/about" onClick={closeMenu}>About</Link></li>
+        <li><Link to="/catalog" onClick={closeMenu}>Products</Link></li>
+        <li><Link to="/cart" onClick={closeMenu}>Cart ({cartItems.length})</Link></li>
+        <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
 
         {user ? (
           <li className='profile-container'>
@@ -45,7 +48,7 @@ const Header = ({ user, cartItems = [] }) => {
             <button className='logout-button' onClick={handleLogout}>Logout</button>
           </li>
         ) : (
-          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/login" onClick={closeMenu}>Login</Link></li>
         )}
       </ul>
     </nav>
