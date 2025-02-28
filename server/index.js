@@ -143,18 +143,16 @@ app.post('/api/favorites', async (req, res) => {
 
 //Fetching Favorites Product
 app.get('/api/favorites', async (req, res) => {
-  const userId = req.query.user_id;
-  if (!userId) {
-      return res.status(400).json({ error: "User ID is required" });
-  }
-
   try {
-      const query = `SELECT p.* FROM favorites f JOIN products p ON f.product_id = p.product_id WHERE f.user_id = ?;`;
-      const [favorites] = await db.execute(query, [userId]); // Fetch all favorite products
-      res.json(favorites);
+    const { user_id } = req.query;
+    if (!user_id) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+    const favorites = await Favorites.findAll({ where: { user_id } });
+    res.json(favorites);
   } catch (error) {
-      console.error("Error fetching favorites:", error);
-      res.status(500).json({ error: "Error fetching favorite products" });
+    console.error('Error fetching favorites:', error);
+    res.status(500).json({ error: 'Failed to fetch favorites' });
   }
 });
 
