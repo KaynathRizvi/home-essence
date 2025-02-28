@@ -32,6 +32,61 @@ const ProductCatalog = () => {
     return matchesSearch && matchesCategory;
   });
 
+  // Handler for adding a product to favorites
+  const handleAddFavorite = async (product) => {
+    const userId = localStorage.getItem('user_id'); // Ensure you store user_id after login
+    if (!userId) {
+      alert("Please login to add favorites.");
+      return;
+    }
+    try {
+      const response = await fetch('https://home-essence-server.onrender.com/api/favorites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: userId,
+          product_id: product.product_id
+        })
+      });
+      if (response.ok) {
+        alert('Product added to favorites!');
+      } else {
+        alert('Error adding favorite.');
+      }
+    } catch (error) {
+      console.error("Error adding favorite:", error);
+      alert("Error adding favorite.");
+    }
+  };
+
+  // Handler for adding a product to the cart
+  const handleAddToCart = async (product) => {
+    const userId = localStorage.getItem('user_id'); // Ensure you store user_id after login
+    if (!userId) {
+      alert("Please login to add products to your cart.");
+      return;
+    }
+    try {
+      const response = await fetch('https://home-essence-server.onrender.com/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: userId,
+          product_id: product.product_id,
+          quantity: 1
+        })
+      });
+      if (response.ok) {
+        alert('Product added to cart!');
+      } else {
+        alert('Error adding product to cart.');
+      }
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      alert("Error adding product to cart.");
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -40,13 +95,17 @@ const ProductCatalog = () => {
     <div className='catalog-container'>
       <div className='catalog-search-bar'><ProductSearchBar /></div>
       <Category />
-      <div className='catalog-listing'   style={{justifyContent: filteredProducts.length < 3 ? 'center' : 'space-between'}}>
+      <div className='catalog-listing' style={{justifyContent: filteredProducts.length < 3 ? 'center' : 'space-between'}}>
         {filteredProducts.map(product => (
-          <div className="catalog-card" key={product['product_id']}>
+          <div className="catalog-card" key={product.product_id}>
             <img src={product.product_image} alt={product.product_title} className="catalog-image" />
             <h3 className='catalog-title'>{product.product_title}</h3>
             <p className="catalog-detail">{product.product_detail}</p>
             <p className='catalog-price'>Price: ₹{product.product_price}</p>
+            <div className="catalog-button">
+              <button className="catalog-fav-button" onClick={() => handleAddFavorite(product)}>Favorite</button>
+              <button className="catalog-cart-button" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+            </div>
           </div>
         ))}
       </div>

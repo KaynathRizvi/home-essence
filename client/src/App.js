@@ -11,7 +11,6 @@ import Footer from './components/Footer/Footer';
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [user, setUser] = useState(localStorage.getItem('user') || null);
 
   useEffect(() => {
@@ -26,7 +25,6 @@ const App = () => {
       .then(response => response.json())
       .then(data => {
         setProducts(data);
-        setFilteredProducts(data);
       })
       .catch(error => console.error("Error fetching products:", error));
   }, []);
@@ -39,7 +37,7 @@ const App = () => {
           <Route path="/" element={
               <div>
                 <Home />
-                <ProductList products={filteredProducts} />
+                <ProductList />
               </div>
             } 
           />
