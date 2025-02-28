@@ -191,6 +191,14 @@ app.post('/api/cart', async (req, res) => {
   } catch (error) {
     console.error('Error adding to cart:', error);
     console.log('Request Data:', { user_id, product_id, quantity, types: { user_id: typeof user_id, product_id: typeof product_id, quantity: typeof quantity } });
+    console.log('Received Data:', {
+      user_id, product_id, quantity,
+      types: {
+        user_id: typeof user_id,
+        product_id: typeof product_id,
+        quantity: typeof quantity
+      }
+    });
     res.status(500).json({ error: 'Failed to add products to cart' });
   }
 });
