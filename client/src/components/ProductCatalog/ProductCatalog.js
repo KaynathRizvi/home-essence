@@ -59,34 +59,36 @@ const ProductCatalog = () => {
     }
   };
 
-  // Handler for adding a product to the cart
-  const handleAddToCart = async (product) => {
-    const userId = localStorage.getItem('user_id'); // Ensure you store user_id after login
+  const handleAddToCart = (product) => {
+    const userId = localStorage.getItem('user_id'); // Ensure you stored user_id on login
     if (!userId) {
-      alert("Please login to add products to your cart.");
+      alert("Please login to add items to your cart.");
       return;
     }
-    try {
-      const response = await fetch('https://home-essence-server.onrender.com/api/cart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: userId,
-          product_id: product.product_id,
-          quantity: 1
-        })
-      });
-      if (response.ok) {
-        alert('Product added to cart!');
+  
+    fetch('https://home-essence-server.onrender.com/api/cart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: userId,
+        product_id: product.product_id,  // Ensure product has product_id property
+        quantity: 1
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        alert(`Error: ${data.error}`);
       } else {
-        alert('Error adding product to cart.');
+        alert('Product added to cart successfully!');
       }
-    } catch (error) {
-      console.error("Error adding product to cart:", error);
-      alert("Error adding product to cart.");
-    }
+    })
+    .catch(error => {
+      console.error('Error adding item to cart:', error);
+      alert('Error adding item to cart.');
+    });
   };
-
+  
   if (loading) {
     return <div>Loading...</div>;
   }

@@ -8,6 +8,7 @@ import ProductCatalog from './components/ProductCatalog/ProductCatalog';
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
 import Footer from './components/Footer/Footer';
+import About from './components/About/About';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -38,10 +39,12 @@ const App = () => {
               <div>
                 <Home />
                 <ProductList />
+                <About />
               </div>
             } 
           />
           <Route path="/catalog" element={<ProductCatalog />} />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
