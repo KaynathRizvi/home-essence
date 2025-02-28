@@ -122,19 +122,19 @@ app.get('/api/categories', async (req, res) => {
 
 // ===================== FAVORITES ENDPOINTS =====================
 //
-const Favorite_item = require('./models/Favorites')(sequelize, DataTypes);
-const CartItem = require('./models/Cart')(sequelize, DataTypes);
+const Favorites = require('./models/Favorites')(sequelize, DataTypes);
+const Cart = require('./models/Cart')(sequelize, DataTypes);
 
 // POST /api/favorites - Add a favorite item
 app.post('/api/favorites', async (req, res) => {
   try {
     const { user_id, product_id } = req.body;
     // Check if the favorite already exists for this user and product
-    const existingFavorite = await Favorite_item.findOne({ where: { user_id, product_id } });
+    const existingFavorite = await Favorites.findOne({ where: { user_id, product_id } });
     if (existingFavorite) {
       return res.status(400).json({ error: 'Product already favorited' });
     }
-    const favorite = await Favorite_item.create({ user_id, product_id });
+    const favorite = await Favorites.create({ user_id, product_id });
     res.status(201).json({ message: 'Favorite added', favorite });
   } catch (error) {
     console.error('Error adding favorite:', error);
@@ -150,7 +150,7 @@ app.get('/api/favorites', async (req, res) => {
     if (!user_id) {
       return res.status(400).json({ error: 'User ID is required' });
     }
-    const favorites = await Favorite_item.findAll({ where: { user_id } });
+    const favorites = await Favorites.findAll({ where: { user_id } });
     res.json(favorites);
   } catch (error) {
     console.error('Error fetching favorites:', error);
@@ -162,7 +162,7 @@ app.get('/api/favorites', async (req, res) => {
 app.delete('/api/favorites/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await Favorite_item.destroy({ where: { id } });
+    const deleted = await Favorites.destroy({ where: { id } });
     if (deleted) {
       res.json({ message: 'Favorite removed' });
     } else {
@@ -184,7 +184,7 @@ app.post('/api/cart', async (req, res) => {
   try {
     const { user_id, product_id, quantity } = req.body;
     // Check if the item is already in the cart for the user
-    const existingItem = await CartItem.findOne({ where: { user_id, product_id } });
+    const existingItem = await Cart.findOne({ where: { user_id, product_id } });
     if (existingItem) {
       // If it exists, update the quantity
       existingItem.quantity += quantity;
@@ -192,7 +192,7 @@ app.post('/api/cart', async (req, res) => {
       return res.json({ message: 'Cart updated', cartItem: existingItem });
     } else {
       // Otherwise, create a new cart item
-      const cartItem = await CartItem.create({ user_id, product_id, quantity });
+      const cartItem = await Cart.create({ user_id, product_id, quantity });
       res.status(201).json({ message: 'Item added to cart', cartItem });
     }
   } catch (error) {
@@ -209,7 +209,7 @@ app.get('/api/cart', async (req, res) => {
     if (!user_id) {
       return res.status(400).json({ error: 'User ID is required' });
     }
-    const cartItems = await CartItem.findAll({ where: { user_id } });
+    const cartItems = await Cart.findAll({ where: { user_id } });
     res.json(cartItems);
   } catch (error) {
     console.error('Error fetching cart items:', error);
@@ -221,7 +221,7 @@ app.get('/api/cart', async (req, res) => {
 app.delete('/api/cart/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await CartItem.destroy({ where: { id } });
+    const deleted = await Cart.destroy({ where: { id } });
     if (deleted) {
       res.json({ message: 'Item removed from cart' });
     } else {
