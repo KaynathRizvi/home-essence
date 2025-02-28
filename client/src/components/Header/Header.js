@@ -39,7 +39,7 @@ const Header = ({ user, cartItems = [] }) => {
         <li><Link to="/" onClick={closeMenu}>Home</Link></li>
         <li><Link to="/about" onClick={closeMenu}>About</Link></li>
         <li><Link to="/catalog" onClick={closeMenu}>Products</Link></li>
-        <li><Link to="/cart" onClick={closeMenu}>Cart ({cartItems.length})</Link></li>
+        <li><Link to="/cartpage" onClick={closeMenu}>Cart</Link></li>
         <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
 
         {user ? (

@@ -9,6 +9,7 @@ import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
 import Footer from './components/Footer/Footer';
 import About from './components/About/About';
+import CartPage from './components/CartPage/CartPage';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/cartpage" element={<CartPage />} />
         </Routes>
         <Footer />
       </div>

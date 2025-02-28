@@ -71,7 +71,7 @@ const ProductList = ({ addToCart }) => {
             <p className="product-price">Price: ₹{product.product_price}</p>
             <div className="product-button">
               <Link to={`/product/${product['product-id']}`}>
-                <button className="see-more-button">Favorite</button>
+                <button className="see-more-button">Wishlist</button>
               </Link>
               <button className="cart-button" onClick={() => addToCart(product)}>
                 Add to Cart

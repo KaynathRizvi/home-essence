@@ -60,7 +60,7 @@ const ProductCatalog = () => {
   };
 
   const handleAddToCart = (product) => {
-    const userId = localStorage.getItem('user_id'); // Ensure you stored user_id on login
+    const userId = localStorage.getItem('user_id');
     if (!userId) {
       alert("Please login to add items to your cart.");
       return;
@@ -88,7 +88,7 @@ const ProductCatalog = () => {
       alert('Error adding item to cart.');
     });
   };
-  
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -105,7 +105,7 @@ const ProductCatalog = () => {
             <p className="catalog-detail">{product.product_detail}</p>
             <p className='catalog-price'>Price: ₹{product.product_price}</p>
             <div className="catalog-button">
-              <button className="catalog-fav-button" onClick={() => handleAddFavorite(product)}>Favorite</button>
+              <button className="catalog-fav-button" onClick={() => handleAddFavorite(product)}>Wishlist</button>
               <button className="catalog-cart-button" onClick={() => handleAddToCart(product)}>Add to Cart</button>
             </div>
           </div>

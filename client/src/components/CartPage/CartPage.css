@@ -1,0 +1,57 @@
+/* Cart Container */
+.cart-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    color: #333;
+  }
+  
+  /* Cart Heading */
+  .cart-container h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+  
+  /* Cart List */
+  .cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Cart Item */
+  .cart-item {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Cart Item Text */
+  .cart-item p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  
+  /* Remove Button */
+  .cart-item button {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .cart-item button:hover {
+    background-color: #ff1a1a;
+  }
+  
