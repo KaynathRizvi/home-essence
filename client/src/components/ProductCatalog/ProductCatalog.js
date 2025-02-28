@@ -32,9 +32,8 @@ const ProductCatalog = () => {
     return matchesSearch && matchesCategory;
   });
 
-  // Handler for adding a product to favorites
   const handleAddFavorite = async (product) => {
-    const userId = localStorage.getItem('user_id'); // Ensure you store user_id after login
+    const userId = localStorage.getItem('user_id');
     if (!userId) {
       alert("Please login to add favorites.");
       return;
