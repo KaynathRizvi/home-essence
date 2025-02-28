@@ -178,23 +178,20 @@ app.delete('/api/favorites/:id', async (req, res) => {
 app.post('/api/cart', async (req, res) => {
   try {
     const { user_id, product_id, quantity } = req.body;
-    console.log("Received cart request:", req.body);
-
-    const existingItem = await Cart.findOne({ where: { user_id, product_id } });
-    if (existingItem) {
+    const existingCartItem = await Cart.findOne({ where: { user_id, product_id } });
+    if (existingCartItem) {
       existingItem.quantity += quantity;
       await existingItem.save();
-      return res.json({ message: 'Cart updated', cartItem: existingItem });
-    } else {
+      return res.json({ message: 'Cart updated', cartItem: existingCartItem });
+    }
       const cartItem = await Cart.create({ user_id, product_id, quantity });
       res.status(201).json({ message: 'Item added to cart', cartItem });
-    }
+    
   } catch (error) {
     console.error('Error adding to cart:', error);
     res.status(500).json({ error: 'Failed to add products to cart' });
   }
 });
-
 
 //Fetching Cart Items
 app.get('/api/cart', async (req, res) => {
