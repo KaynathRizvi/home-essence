@@ -185,11 +185,12 @@ app.post('/api/cart', async (req, res) => {
       return res.json({ message: 'Cart updated', cartItem: existingItem });
     } else {
       const cartItem = await Cart.create({ user_id, product_id, quantity });
-      res.status(201).json({ message: 'Item added to cart', cartItem: cartItem.get({ plain: true }) });
+      res.status(201).json({ message: 'Item added to cart', cartItem });
       
     }
   } catch (error) {
     console.error('Error adding to cart:', error);
+    console.log('Request Data:', { user_id, product_id, quantity, types: { user_id: typeof user_id, product_id: typeof product_id, quantity: typeof quantity } });
     res.status(500).json({ error: 'Failed to add products to cart' });
   }
 });
