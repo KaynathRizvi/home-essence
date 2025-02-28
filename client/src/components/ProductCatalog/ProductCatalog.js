@@ -50,7 +50,7 @@ const ProductCatalog = () => {
       if (response.ok) {
         alert('Product added to favorites!');
       } else {
-        alert('Error adding favorite.');
+        alert('Error faced in adding favorite.');
       }
     } catch (error) {
       console.error("Error adding favorite:", error);
