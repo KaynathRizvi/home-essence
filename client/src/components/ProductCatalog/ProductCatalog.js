@@ -44,7 +44,7 @@ const ProductCatalog = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user_id: userId,
+          user_id: parseInt(localStorage.getItem('user_id')),
           product_id: product.product_id
         })
       });
@@ -70,8 +70,8 @@ const ProductCatalog = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        user_id: userId,
-        product_id: product.product_id,  // Ensure product has product_id property
+        user_id: parseInt(localStorage.getItem('user_id')),
+        product_id: product.product_id,
         quantity: 1
       })
     })

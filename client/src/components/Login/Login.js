@@ -24,7 +24,11 @@ const Login = ({ setUser }) => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', response.data.user_name);
       localStorage.setItem('user_id', response.data.user_id);
-      
+
+      console.log("Stored Token:", localStorage.getItem('token'));
+      console.log("Stored User Name:", localStorage.getItem('user'));
+      console.log("Stored User ID:", localStorage.getItem('user_id'));
+
       setUser(response.data.user_name);
       navigate('/');
     } catch (err) {
