@@ -4,15 +4,28 @@ import './FavoritePage.css';
 
 const FavoritePage = () => {
   const [favorites, setFavorites] = useState([]);
-  const userId = localStorage.getItem('user_id');
+  const userId = localStorage.getItem('user_id'); // Get user_id from local storage
 
   useEffect(() => {
-    if (!userId) return;
-    fetch(`https://home-essence-server.onrender.com/api/favorites/${userId}`)
-      .then(response => response.json())
-      .then(data => setFavorites(data))
+    if (!userId) {
+      console.error("User ID not found in local storage.");
+      return;
+    }
+  
+    fetch(`https://home-essence-server.onrender.com/api/favorites?user_id=${userId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Fetched Favorites Data:", data); // Debugging
+        setFavorites(data);
+      })
       .catch(error => console.error("Error fetching favorites:", error));
-  }, [userId]);
+  }, [userId]);  
+
 
   const handleRemoveFavorite = async (productId) => {
     try {
