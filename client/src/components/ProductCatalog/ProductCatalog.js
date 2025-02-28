@@ -1,8 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link} from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import './ProductCatalog.css';
 import ProductSearchBar from '../ProductSearchBar/ProductSearchBar';
 import Category from '../Category/Category';
+
+export const handleAddFavorite = async (product) => {
+  const userId = localStorage.getItem('user_id');
+  if (!userId) {
+    alert("Please login to add favorites.");
+    return;
+  }
+
+  try {
+    const response = await fetch('https://home-essence-server.onrender.com/api/favorites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: parseInt(userId),
+        product_id: product.product_id
+      })
+    });
+
+    if (response.ok) {
+      alert('Product added to favorites!');
+    } else {
+      alert('Product already added.');
+    }
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    alert("Error adding favorite.");
+  }
+};
+
+export const handleAddToCart = async (product) => {
+  const userId = localStorage.getItem('user_id');
+  if (!userId) {
+    alert("Please login to add items to your cart.");
+    return;
+  }
+
+  try {
+    const response = await fetch('https://home-essence-server.onrender.com/api/cart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: parseInt(userId),
+        product_id: product.product_id,
+        quantity: 1
+      })
+    });
+
+    const data = await response.json();
+    console.log("Cart Response:", data);
+
+    if (data.error) {
+      alert(`Error: ${data.error}`);
+    } else {
+      alert('Product added to cart successfully!');
+    }
+  } catch (error) {
+    console.error('Error adding item to cart:', error);
+    alert('Error adding item to cart.');
+  }
+};
 
 const ProductCatalog = () => {
   const [products, setProducts] = useState([]);
@@ -31,63 +91,6 @@ const ProductCatalog = () => {
     const matchesCategory = product.product_category.toLowerCase().includes(categoryQuery);
     return matchesSearch && matchesCategory;
   });
-
-  const handleAddFavorite = async (product) => {
-    const userId = localStorage.getItem('user_id');
-    if (!userId) {
-      alert("Please login to add favorites.");
-      return;
-    }
-    try {
-      const response = await fetch('https://home-essence-server.onrender.com/api/favorites', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: parseInt(localStorage.getItem('user_id')),
-          product_id: product.product_id
-        })
-      });
-      if (response.ok) {
-        alert('Product added to favorites!');
-      } else {
-        alert('Error faced in adding favorite.');
-      }
-    } catch (error) {
-      console.error("Error adding favorite:", error);
-      alert("Error adding favorite.");
-    }
-  };
-
-  const handleAddToCart = (product) => {
-    const userId = localStorage.getItem('user_id');
-    if (!userId) {
-      alert("Please login to add items to your cart.");
-      return;
-    }
-  
-    fetch('https://home-essence-server.onrender.com/api/cart', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id: parseInt(localStorage.getItem('user_id')),
-        product_id: product.product_id,
-        quantity: 1
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Cart Response:", data); // Debugging log
-      if (data.error) {
-        alert(`Error: ${data.error}`);
-      } else {
-        alert('Product added to cart successfully!');
-      }
-    })
-    .catch(error => {
-      console.error('Error adding item to cart:', error);
-      alert('Error adding item to cart.');
-    });    
-  };
 
   if (loading) {
     return <div>Loading...</div>;

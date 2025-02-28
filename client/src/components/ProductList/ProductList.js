@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './ProductList.css';
+import { handleAddFavorite, handleAddToCart } from '../ProductCatalog/ProductCatalog';
 
 const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
@@ -76,10 +77,8 @@ const ProductList = ({ addToCart }) => {
             <p className="product-detail">{product.product_detail}</p>
             <p className="product-price">Price: ₹{product.product_price}</p>
             <div className="product-button">
-              <Link to={`/product/${product['product-id']}`}>
-                <button className="see-more-button">Wishlist</button>
-              </Link>
-              <button className="cart-button" onClick={() => addToCart(product)}>
+              <button className="see-more-button"  onClick={() => handleAddFavorite(product)}>Wishlist</button>
+              <button className="cart-button" onClick={() => handleAddToCart(product)}>
                 Add to Cart
               </button>
             </div>

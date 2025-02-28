@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import './ProductView.css';
+import { handleAddFavorite, handleAddToCart } from '../ProductCatalog/ProductCatalog';
 
 const ProductView = ({ products = [] }) => {  
   const { productId } = useParams();
@@ -21,9 +22,11 @@ const ProductView = ({ products = [] }) => {
         </div>
       <h2 className="product-view-title">{product.product_title}</h2>
       <p className="product-view-detail">{product.product_detail}</p>
-      <p className="product-view-detail">Price: ₹{product.product_price}</p>
-      <button className="view-wishlist">Wishlist</button>
-      <button className="view-cart">Add to Cart</button>
+      <p className="product-view-price">Price: ₹{product.product_price}</p>
+      <div className="view-button">
+        <button className="view-fav-button"  onClick={() => handleAddFavorite(product)}>Wishlist</button>
+        <button className="view-cart-button"  onClick={() => handleAddToCart(product)}>Add to Cart</button>
+      </div>
     </div>
   );
 };

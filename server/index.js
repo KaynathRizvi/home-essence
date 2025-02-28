@@ -178,7 +178,7 @@ app.delete('/api/favorites/:id', async (req, res) => {
 app.post('/api/cart', async (req, res) => {
   try {
     const { user_id, product_id, quantity } = req.body;
-    console.log("Received cart request:", req.body); // Debugging log
+    console.log("Received cart request:", req.body);
 
     const existingItem = await Cart.findOne({ where: { user_id, product_id } });
     if (existingItem) {

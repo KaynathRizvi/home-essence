@@ -44,7 +44,7 @@ const Header = ({ user, cartItems = [] }) => {
 
         {user ? (
           <li className='profile-container'>
-            <span className='profile-name'>Welcome, {user}!</span>
+            <Link to="/favorites" className='profile-name'>Welcome, {user}!</Link>
             <button className='logout-button' onClick={handleLogout}>Logout</button>
           </li>
         ) : (
