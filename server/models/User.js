@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    const User = sequelize.define('user_accounts', {
+    const User = sequelize.define('User', {
     user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -25,9 +25,9 @@ module.exports = (sequelize) => {
       allowNull: false
     }
 }, {
-    tableName: 'user_accounts',   // Use your existing table name
-    timestamps: false,       // Set to false if you don't use createdAt/updatedAt columns
-    freezeTableName: true    // Prevents Sequelize from pluralizing the table name
+    tableName: 'user_accounts',
+    timestamps: false,
+    freezeTableName: true
   });
 
   return User;

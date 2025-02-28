@@ -1,6 +1,6 @@
 // models/Favorite.js
 module.exports = (sequelize, DataTypes) => {
-    const Favorites = sequelize.define('Favorite', {
+    const Favorites = sequelize.define('Favorites', {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       },
     }, {
       tableName: 'favorite_item',
+      timestamps: false,
+      freezeTableName: true
     });
   
     return Favorites;

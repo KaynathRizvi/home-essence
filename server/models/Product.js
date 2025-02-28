@@ -29,9 +29,9 @@ module.exports = (sequelize) => {
         allowNull: false
     },
   }, {
-    tableName: 'products',   // Use your existing table name
-    timestamps: false,       // Set to false if you don't use createdAt/updatedAt columns
-    freezeTableName: true    // Prevents Sequelize from pluralizing the table name
+    tableName: 'products',
+    timestamps: false,
+    freezeTableName: true
   });
 
   return Product;
