@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link} from 'react-router-dom';
 import './ProductCatalog.css';
 import ProductSearchBar from '../ProductSearchBar/ProductSearchBar';
 import Category from '../Category/Category';
@@ -76,6 +76,7 @@ const ProductCatalog = () => {
     })
     .then(response => response.json())
     .then(data => {
+      console.log("Cart Response:", data); // Debugging log
       if (data.error) {
         alert(`Error: ${data.error}`);
       } else {
@@ -85,7 +86,7 @@ const ProductCatalog = () => {
     .catch(error => {
       console.error('Error adding item to cart:', error);
       alert('Error adding item to cart.');
-    });
+    });    
   };
 
   if (loading) {
@@ -99,7 +100,9 @@ const ProductCatalog = () => {
       <div className='catalog-listing' style={{justifyContent: filteredProducts.length < 3 ? 'center' : 'space-between'}}>
         {filteredProducts.map(product => (
           <div className="catalog-card" key={product.product_id}>
-            <img src={product.product_image} alt={product.product_title} className="catalog-image" />
+            <Link to={`/view/${product.product_id}`}>
+              <img src={product.product_image} alt={product.product_title} className="catalog-image" />
+            </Link>
             <h3 className='catalog-title'>{product.product_title}</h3>
             <p className="catalog-detail">{product.product_detail}</p>
             <p className='catalog-price'>Price: ₹{product.product_price}</p>

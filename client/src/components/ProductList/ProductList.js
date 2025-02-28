@@ -65,7 +65,13 @@ const ProductList = ({ addToCart }) => {
       <div className="product-listing" ref={containerRef}>
         {products.slice(currentIndex, currentIndex + productsPerRow).map((product) => (
           <div className="product-card" key={product['product_id']}>
-            <img src={`${product.product_image}`} alt={product.product_title} className="product-image" />
+            <Link to={`/view/${product.product_id}`}>
+            <img 
+              src={product.product_image} 
+              alt={product.product_title} 
+              className="product-image" 
+            />
+          </Link>
             <h3 className="product-title">{product.product_title}</h3>
             <p className="product-detail">{product.product_detail}</p>
             <p className="product-price">Price: ₹{product.product_price}</p>

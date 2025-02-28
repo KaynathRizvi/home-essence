@@ -10,6 +10,8 @@ import SignUp from './components/SignUp/SignUp'
 import Footer from './components/Footer/Footer';
 import About from './components/About/About';
 import CartPage from './components/CartPage/CartPage';
+import Contact from './components/Contact/Contact';
+import ProductView from './components/ProductView/ProductView';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -49,6 +51,8 @@ const App = () => {
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/cartpage" element={<CartPage />} />
+          <Route path="/view/:productId" element={<ProductView products={products} />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
       </div>
