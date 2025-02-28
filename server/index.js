@@ -185,7 +185,8 @@ app.post('/api/cart', async (req, res) => {
       return res.json({ message: 'Cart updated', cartItem: existingItem });
     } else {
       const cartItem = await Cart.create({ user_id, product_id, quantity });
-      res.status(201).json({ message: 'Item added to cart', cartItem });
+      res.status(201).json({ message: 'Item added to cart', cartItem: cartItem.get({ plain: true }) });
+      
     }
   } catch (error) {
     console.error('Error adding to cart:', error);
