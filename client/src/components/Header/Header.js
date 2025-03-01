@@ -29,7 +29,7 @@ const Header = ({ user = [] }) => {
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <h1 ><Link to="/" className='navbar-title'>Home Essence</Link></h1>
+      <Link to="/" className='title-link'><h1 className='navbar-title'>Home Essence</h1></Link>
       <div className="hamburger" onClick={toggleMenu}>
         <div></div>
         <div></div>
