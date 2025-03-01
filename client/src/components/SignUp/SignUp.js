@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SignUp.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || process.env.REACT_APP_DEBUG_SERVER_URL;
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -27,11 +27,11 @@ const SignUp = () => {
     }
   
     try {
-      const response = await axios.post(`${API_URL}/api/signup`, {
+      const response = await axios.post(SERVER_URL + '/api/signup', {
         user_name: name,
         user_email: email,
         user_contact: contactNumber,
-        user_pass: password, // No confirmPassword
+        user_pass: password,
       });
   
       setSuccess(response.data.message);

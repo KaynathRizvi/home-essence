@@ -1,4 +1,3 @@
-// models/Cart.js
 module.exports = (sequelize, DataTypes) => {
   const Cart = sequelize.define('Cart', {
     cart_id: {
@@ -20,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     tableName: 'cart_item',
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   });
 

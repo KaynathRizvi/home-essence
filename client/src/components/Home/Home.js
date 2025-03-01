@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
 import bg from '../../assests/bg.png';
 import './Home.css';
 import ProductSearchBar from '../ProductSearchBar/ProductSearchBar';
 
-const Home = ({ onSearch, cartItems }) => {
+const Home = () => {
 
   return (
     <div className='home-conatiner'>

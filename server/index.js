@@ -10,7 +10,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Creating Sequelize 
+//LocalHost Database Connection
+/*const sequelize = new Sequelize(
+  'sql12764660', 
+  'root', 
+  '', 
+  {
+    host: 'localhost',
+    dialect: 'mysql',
+    pool: {
+      max: 10,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  }
+);
+*/
+
+// Main Database Connect(Hosting)
 const sequelize = new Sequelize(
   process.env.DB_NAME, 
   process.env.DB_USER, 
@@ -37,8 +55,6 @@ const Cart = require('./models/Cart')(sequelize, DataTypes);
 sequelize.authenticate()
   .then(() => console.log('Database connected...'))
   .catch(err => console.error('Database connection error:', err));
-
-app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //Signup API
 app.post('/api/signup', async (req, res) => {
@@ -148,8 +164,22 @@ app.get('/api/favorites', async (req, res) => {
     if (!user_id) {
       return res.status(400).json({ error: 'User ID is required' });
     }
-    const favorites = await Favorites.findAll({ where: { user_id } });
-    res.json(favorites);
+
+    const favorites = await Favorites.findAll({ 
+      where: { user_id },
+      include: [
+        {
+          model: Product,
+          required: true,
+          attributes: ['product_id', 'product_title', 'product_image', 'product_price']
+        }
+      ]
+    });
+
+    console.log("Favorites Response:", JSON.stringify(favorites, null, 2));
+
+    res.json(favorites.map(fav => fav.Product));
+
   } catch (error) {
     console.error('Error fetching favorites:', error);
     res.status(500).json({ error: 'Failed to fetch favorites' });
@@ -157,10 +187,11 @@ app.get('/api/favorites', async (req, res) => {
 });
 
 //Removing Favorite Product
-app.delete('/api/favorites/:id', async (req, res) => {
+app.delete('/api/favorites/:productId', async (req, res) => {
   try {
-    const { id } = req.params;
-    const deleted = await Favorites.destroy({ where: { id } });
+    const { productId } = req.params;
+    const deleted = await Favorites.destroy({ where: { product_id: productId } });
+
     if (deleted) {
       res.json({ message: 'Favorite removed' });
     } else {
@@ -173,16 +204,16 @@ app.delete('/api/favorites/:id', async (req, res) => {
 });
 
 
+
 //Cart API
 //Adding products to Cart
 app.post('/api/cart', async (req, res) => {
   try {
     const { user_id, product_id, quantity } = req.body;
+
     const existingCartItem = await Cart.findOne({ where: { user_id, product_id } });
     if (existingCartItem) {
-      existingItem.quantity += quantity;
-      await existingItem.save();
-      return res.json({ message: 'Cart updated', cartItem: existingCartItem });
+      return res.status(400).json({ error: 'Product already present in Cart' });
     }
       const cartItem = await Cart.create({ user_id, product_id, quantity });
       res.status(201).json({ message: 'Item added to cart', cartItem });
@@ -200,19 +231,33 @@ app.get('/api/cart', async (req, res) => {
     if (!user_id) {
       return res.status(400).json({ error: 'User ID is required' });
     }
-    const cartItems = await Cart.findAll({ where: { user_id } });
-    res.json(cartItems);
+    const cartItems = await Cart.findAll({ 
+      where: { user_id },
+      include: [
+        {
+          model: Product,
+          required: true,
+          attributes: ['product_id', 'product_title', 'product_image', 'product_price'] // Fetch only necessary fields
+        }
+      ]
+    });
+
+    console.log("Cart Response:", JSON.stringify(cartItems, null, 2));
+
+    res.json(cartItems.map(carts => carts.Product));
+
   } catch (error) {
-    console.error('Error fetching cart items:', error);
-    res.status(500).json({ error: 'Failed to fetch cart items' });
+    console.error('Error fetching Cart Items:', error);
+    res.status(500).json({ error: 'Failed to fetch Cart Items' });
   }
 });
 
 //Removing From Cart
-app.delete('/api/cart/:id', async (req, res) => {
+app.delete('/api/cart/:productId', async (req, res) => {
   try {
-    const { id } = req.params;
-    const deleted = await Cart.destroy({ where: { cart_id: id } });
+    const { productId } = req.params;
+    const deleted = await Cart.destroy({ where: { product_id: productId } });
+
     if (deleted) {
       res.json({ message: 'Item removed from cart' });
     } else {
@@ -223,6 +268,17 @@ app.delete('/api/cart/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to remove cart item' });
   }
 });
+
+
+Favorites.belongsTo(Product, { foreignKey: "product_id" }); //One favorite can have only one product
+Product.hasMany(Favorites, { foreignKey: "product_id" }); // One product can have many favorites
+
+module.exports = { Favorites, Product }; //Exporting our Models
+
+Cart.belongsTo(Product, { foreignKey: "product_id" }); // One cart item can have only one product
+Product.hasMany(Cart, { foreignKey: "product_id" }); // One product can be in many carts
+
+module.exports = { Favorites, Cart }; //Exporting our Models
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {

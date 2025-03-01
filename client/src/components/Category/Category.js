@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Category.css'; // You can adjust or add additional styles here
+import './Category.css';
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL || process.env.REACT_APP_DEBUG_SERVER_URL;
 
   useEffect(() => {
-    fetch(`${API_URL}/api/categories`)
+    fetch(`${SERVER_URL}/api/categories`)
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error("Error fetching categories:", error));
-  }, [API_URL]);
+  }, [SERVER_URL]);
 
   const handleChange = (event) => {
     const selectedCategory = event.target.value;

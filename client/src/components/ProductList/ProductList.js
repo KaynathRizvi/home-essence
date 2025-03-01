@@ -7,14 +7,14 @@ const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [productsPerRow, setProductsPerRow] = useState(4); // Default 1 product per row
+  const [productsPerRow, setProductsPerRow] = useState(4);
 
   const containerRef = useRef(null);
 
-  const RENDER_SERVER_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL || process.env.REACT_APP_DEBUG_SERVER_URL;
 
   useEffect(() => {
-    fetch(`${RENDER_SERVER_URL}/api/products`)
+    fetch(`${SERVER_URL}/api/products`)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
@@ -24,7 +24,7 @@ const ProductList = ({ addToCart }) => {
         console.error('Error fetching products:', error);
         setLoading(false);
       });
-  }, [RENDER_SERVER_URL]);
+  }, [SERVER_URL]);
 
   useEffect(() => {
     const updateProductsPerRow = () => {

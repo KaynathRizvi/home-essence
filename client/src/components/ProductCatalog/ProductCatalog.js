@@ -4,6 +4,8 @@ import './ProductCatalog.css';
 import ProductSearchBar from '../ProductSearchBar/ProductSearchBar';
 import Category from '../Category/Category';
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || process.env.REACT_APP_DEBUG_SERVER_URL;
+
 export const handleAddFavorite = async (product) => {
   const userId = localStorage.getItem('user_id');
   if (!userId) {
@@ -12,7 +14,7 @@ export const handleAddFavorite = async (product) => {
   }
 
   try {
-    const response = await fetch('https://home-essence-server.onrender.com/api/favorites', {
+    const response = await fetch(SERVER_URL + '/api/favorites', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -40,7 +42,7 @@ export const handleAddToCart = async (product) => {
   }
 
   try {
-    const response = await fetch('https://home-essence-server.onrender.com/api/cart', {
+    const response = await fetch(SERVER_URL + '/api/cart', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -74,7 +76,7 @@ const ProductCatalog = () => {
   const categoryQuery = queryParams.get('category')?.toLowerCase() || '';
 
   useEffect(() => {
-    fetch('https://home-essence-server.onrender.com/api/products')
+    fetch(`${SERVER_URL}/api/products`)
       .then(response => response.json())
       .then(data => {
         setProducts(data);

@@ -1,4 +1,3 @@
-// models/Favorite.js
 module.exports = (sequelize, DataTypes) => {
     const Favorites = sequelize.define('Favorites', {
       id: {

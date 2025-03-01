@@ -1,44 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import './FavoritePage.css';
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || process.env.REACT_APP_DEBUG_SERVER_URL;
 
 const FavoritePage = () => {
   const [favorites, setFavorites] = useState([]);
-  const userId = localStorage.getItem('user_id'); // Get user_id from local storage
+  const userId = localStorage.getItem("user_id");
 
   useEffect(() => {
-    if (!userId) {
-      console.error("User ID not found in local storage.");
-      return;
-    }
-  
-    fetch(`https://home-essence-server.onrender.com/api/favorites?user_id=${userId}`)
-      .then(response => {
+    //To add products in favorite
+    const fetchFavorites = async () => {
+      try {
+        if (!userId) {
+          console.error("User ID not found in local storage.");
+          return;
+        }
+
+        const response = await fetch(`${SERVER_URL}/api/favorites?user_id=${userId}`);
+        
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then(data => {
-        console.log("Fetched Favorites Data:", data); // Debugging
+
+        const data = await response.json();
+        console.log("Fetched Favorites Data:", data);
+
         setFavorites(data);
-      })
-      .catch(error => console.error("Error fetching favorites:", error));
-  }, [userId]);  
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
+      }
+    };
 
+    fetchFavorites();
+  }, [userId]);
 
-  const handleRemoveFavorite = async (productId) => {
+  //Removing product from favorite
+  const removeFavorite = async (productId) => {
     try {
-      const response = await fetch(`https://home-essence-server.onrender.com/api/favorites/${userId}/${productId}`, {
-        method: 'DELETE',
+      const response = await fetch(`${SERVER_URL}/api/favorites/${productId}`, {
+        method: "DELETE",
       });
 
-      if (response.ok) {
-        setFavorites(favorites.filter(product => product.product_id !== productId));
-        alert("Product removed from favorites.");
-      } else {
-        alert("Error removing product.");
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
+
+      //Remove the product from the favorite after deleting it from the server
+      setFavorites((prevFavorites) => prevFavorites.filter((product) => product.product_id !== productId));
+      
+      console.log(`Product ${productId} removed from favorites`);
     } catch (error) {
       console.error("Error removing favorite:", error);
     }
@@ -55,14 +66,12 @@ const FavoritePage = () => {
         <p>No favorites yet.</p>
       ) : (
         <div className="favorites-list">
-          {favorites.map(product => (
+          {favorites.map((product) => (
             <div className="favorite-card" key={product.product_id}>
-              <Link to={`/view/${product.product_id}`}>
-                <img src={product.product_image} alt={product.product_title} />
-              </Link>
+              <img src={product.product_image} alt={product.product_title} />
               <h3>{product.product_title}</h3>
               <p>Price: ₹{product.product_price}</p>
-              <button onClick={() => handleRemoveFavorite(product.product_id)}>Remove</button>
+              <button onClick={() => removeFavorite(product.product_id)}>Remove</button>
             </div>
           ))}
         </div>

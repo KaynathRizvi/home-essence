@@ -6,13 +6,13 @@ const ProductView = ({ products = [] }) => {
   const { productId } = useParams();
 
   if (!products || products.length === 0) {
-    return <h2>Loading products...</h2>;  // Check if products are actually coming
+    return <h2>Loading products...</h2>;
   }
 
   const product = products.find((item) => item.product_id === parseInt(productId));
 
   if (!product) {
-    return <h2>Product not found</h2>;  // Handle invalid product ID
+    return <h2>Product not found</h2>;
   }
 
   return (

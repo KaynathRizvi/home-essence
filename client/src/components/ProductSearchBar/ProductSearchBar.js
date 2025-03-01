@@ -8,7 +8,7 @@ const ProductSearchBar = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    // Navigate to the catalog page with the search query as a URL parameter.
+    // Open Catalog Page when someone search for products
     navigate(`/catalog?search=${encodeURIComponent(searchQuery)}`);
   };
 

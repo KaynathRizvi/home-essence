@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import ProductList from './components/ProductList/ProductList';
-import ProductSearchBar from './components/ProductSearchBar/ProductSearchBar';
 import ProductCatalog from './components/ProductCatalog/ProductCatalog';
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
@@ -13,6 +12,8 @@ import CartPage from './components/CartPage/CartPage';
 import Contact from './components/Contact/Contact';
 import ProductView from './components/ProductView/ProductView';
 import FavoritesPage from './components/FavoritePage/FavoritePage';
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || process.env.REACT_APP_DEBUG_SERVER_URL;
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -26,7 +27,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    fetch('https://home-essence-server.onrender.com/api/products')
+    fetch(SERVER_URL + '/api/products')
       .then(response => response.json())
       .then(data => {
         setProducts(data);

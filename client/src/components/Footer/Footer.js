@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Contact Us</h3>
           <p>Email: support@homeessence.com</p>
-          <p>Phone: +91 98765 43210</p>
+          <p>Phone: +91 1234567890</p>
           <p>Address: 123, Home Essence Street, Mumbai, India</p>
         </div>
 

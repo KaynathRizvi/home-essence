@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || process.env.REACT_APP_DEBUG_SERVER_URL;
 
 const Login = ({ setUser }) => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ const Login = ({ setUser }) => {
     setError('');
 
     try {
-      const response = await axios.post(`${API_URL}/api/login`, {
+      const response = await axios.post(SERVER_URL + '/api/login', {
         user_email: email,
         user_pass: password,
       });

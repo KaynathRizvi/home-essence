@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';  // Import Link from react-router-dom
 import './Header.css';
 
-const Header = ({ user, cartItems = [] }) => {
+const Header = ({ user = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -24,12 +24,12 @@ const Header = ({ user, cartItems = [] }) => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    window.location.reload(); // Refresh the page to update the header
+    window.location.reload();
   };
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <h1 className='navbar-title'>Home Essence</h1>
+      <h1 ><Link to="/" className='navbar-title'>Home Essence</Link></h1>
       <div className="hamburger" onClick={toggleMenu}>
         <div></div>
         <div></div>
@@ -40,11 +40,11 @@ const Header = ({ user, cartItems = [] }) => {
         <li><Link to="/about" onClick={closeMenu}>About</Link></li>
         <li><Link to="/catalog" onClick={closeMenu}>Products</Link></li>
         <li><Link to="/cartpage" onClick={closeMenu}>Cart</Link></li>
+        <li><Link to="/favorites" onClick={closeMenu}>Wishlist</Link></li>
         <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
-
         {user ? (
           <li className='profile-container'>
-            <Link to="/favorites" className='profile-name'>Welcome, {user}!</Link>
+            <span className='profile-name'>Welcome, {user}!</span>
             <button className='logout-button' onClick={handleLogout}>Logout</button>
           </li>
         ) : (

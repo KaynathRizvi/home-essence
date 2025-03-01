@@ -1,49 +1,64 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './CartPage.css';
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || process.env.REACT_APP_DEBUG_SERVER_URL;
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const userId = localStorage.getItem("user_id");
 
-  // Fetch cart items for the logged-in user on component mount
   useEffect(() => {
-    const userId = localStorage.getItem('user_id');
-    if (!userId) {
-      setLoading(false);
-      return;
-    }
-    fetch(`https://home-essence-server.onrender.com/api/cart?user_id=${userId}`)
-      .then(response => response.json())
-      .then(data => {
+    //To add products in cart
+    const fetchCart = async () => {
+      try {
+        if (!userId) {
+          console.error("User ID not found in local storage.");
+          return;
+        }
+  
+        const response = await fetch(`${SERVER_URL}/api/cart?user_id=${userId}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        console.log("Fetched Cart Data:", data);
         setCartItems(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Error fetching cart items:", error);
-        setLoading(false);
+  
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
+      }
+    };
+  
+    fetchCart();
+  }, [userId]);
+  
+  //Removing product from cart
+  const removeCartProduct = async (productId) => {
+    try {
+      const response = await fetch(`${SERVER_URL}/api/cart/${productId}`, {
+        method: "DELETE",
       });
-  }, []);
 
-  // Function to remove an item from the cart
-  const handleRemoveCartItem = (itemId) => {
-    fetch(`https://home-essence-server.onrender.com/api/cart/${itemId}`, {
-      method: 'DELETE',
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Update the cart items state by filtering out the removed item
-        setCartItems(cartItems.filter(item => item.id !== itemId));
-        alert('Item removed from cart!');
-      })
-      .catch(error => {
-        console.error("Error removing cart item:", error);
-        alert("Error removing cart item.");
-      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Remove the product from the cart after deleting it from the server
+      setCartItems((prevCart) => prevCart.filter((product) => product.product_id !== productId));
+      
+      console.log(`Product ${productId} removed from cart`);
+    } catch (error) {
+      console.error("Error removing cart:", error);
+    }
   };
 
-  if (loading) {
-    return <div>Loading cart...</div>;
-  }
+  if (!userId) {
+    return <div>Please <Link to="/login">login</Link> to view favorites.</div>;
+}
+
 
   return (
     <div className="cart-container">
@@ -52,14 +67,12 @@ const CartPage = () => {
         <p>Your cart is empty.</p>
       ) : (
         <ul className="cart-list">
-          {cartItems.map(item => (
-            <li key={item.id} className="cart-item">
-              <p>Product ID: {item.product_id}</p>
-              <p>Quantity: {item.quantity}</p>
-              {/* Remove button for each cart item */}
-              <button onClick={() => handleRemoveCartItem(item.id)}>
-                Remove
-              </button>
+          {cartItems.map(product => (
+            <li key={product.id} className="cart-item">
+              <h3>{product.product_title}</h3>
+              <p>Price: ₹{product.product_price}</p>
+              <p>Quantity: {product.quantity}</p>
+              <button onClick={() => removeCartProduct(product.product_id)}>Remove</button>
             </li>
           ))}
         </ul>
