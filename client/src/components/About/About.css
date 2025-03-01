@@ -22,6 +22,7 @@
   .about-content p {
     margin-bottom: 1.5rem;
     font-size: 1.125rem;
+    text-align: justify;
   }
   
   .about-footer {
@@ -35,4 +36,35 @@
   .about-footer strong {
     color: #2c3e50;
   }
+
+  @media (max-width: 768px){
+    .about-page{
+      padding: 1rem;
+    }
+    .about-header h1 {
+      font-size: 2rem;
+    }
+    .about-content p {
+      font-size: 1rem;
+    }
+  }
   
+  
+  @media (max-width: 480px){
+    .about-page{
+      padding: .5rem;
+    }
+    .about-header {
+      margin-bottom: 1rem;
+    }
+    .about-header h1 {
+      font-size: 1.7rem;
+      margin-bottom: 0.1rem;
+    }
+    .about-content p {
+      font-size: .8rem;
+    }
+    .about-footer{
+      font-size: .8rem;
+    }
+  }

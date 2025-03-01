@@ -1,7 +1,5 @@
 .favorites-container {
-    text-align: center;
     padding: 20px;
-    max-width: 1200px;
     margin: auto;
   }
   
@@ -18,10 +16,10 @@
   
   .favorites-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    flex-direction: row;
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    justify-content: center;
-    padding: 10px;
+    width: 100%;
   }
   
   .favorite-card {
@@ -29,6 +27,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
+    width: 100%;
     text-align: center;
     transition: 0.3s ease;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
@@ -41,9 +40,9 @@
   
   .favorite-card img {
     width: 100%;
-    height: 200px;
+    height: 65%;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 10px;
   }
   
   .favorite-card h3 {
@@ -55,7 +54,6 @@
   .favorite-card p {
     font-size: 1.2rem;
     color: #3c3a3c;
-    font-weight: bold;
   }
   
   .favorite-card button {
@@ -73,35 +71,126 @@
     background: black;
   }
   
+  @media (max-width: 1200px) {
+    .favorites-container h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+    
+    .favorites-list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+    
+    .favorite-card img {
+      height: 65%;
+    }
+
+    .favorite-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .favorite-card p {
+      font-size: 1rem;
+    }
+    
+    .favorite-card button {
+      padding: 8px 10px;
+      font-size: .9rem;
+      margin-bottom: 10px;
+    }
+  }
   @media (max-width: 768px) {
+    .favorites-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    
     .favorites-list {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      width: 100%;
     }
-  
-    .favorite-card {
-      padding: 10px;
+    .favorite-card img{
+      height: 65%;
     }
-  
-    .favorite-card img {
-      height: 180px;
+    .favorite-card h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    
+    .favorite-card p {
+      font-size: .8rem;
+    }
+    
+    .favorite-card button {
+      padding: 6px 8px;
+      font-size: .8rem;
+      margin-bottom: 10px;
     }
   }
-  
   @media (max-width: 480px) {
-    .favorites-container {
-      padding: 10px;
+  .favorites-container h2 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
     }
-  
+    
     .favorites-list {
-      grid-template-columns: 1fr;
-    }
-  
-    .favorite-card {
-      padding: 10px;
-    }
-  
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
+  }
+    
     .favorite-card img {
-      height: 150px;
+      height: 60%;
+    }
+    
+    .favorite-card h3 {
+      font-size: .8rem;
+      margin-bottom: 10px;
+    }
+    
+    .favorite-card p {
+      font-size: .7rem;
+    }
+    
+    .favorite-card button {
+      padding: 6px 10px;
+      font-size: .7rem;
+      margin-bottom: 10px;
     }
   }
   
+  @media (max-width: 360px) {
+    .favorites-container h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+      }
+      
+      .favorites-list {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+        width: 100%;
+    }
+      
+      .favorite-card img {
+        height: 70%;
+      }
+      
+      .favorite-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+      
+      .favorite-card p {
+        font-size: 1rem;
+      }
+      
+      .favorite-card button {
+        padding: 6px 10px;
+        font-size: .8rem;
+        margin-bottom: 10px;
+      }
+    }

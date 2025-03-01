@@ -69,10 +69,13 @@ const CartPage = () => {
         <ul className="cart-list">
           {cartItems.map(product => (
             <li key={product.id} className="cart-item">
+              <img src={product.product_image} alt={product.product_title} className='cart-img'/>
+              <div className='cart-list-partition'>
               <h3>{product.product_title}</h3>
               <p>Price: ₹{product.product_price}</p>
               <p>Quantity: {product.quantity}</p>
               <button onClick={() => removeCartProduct(product.product_id)}>Remove</button>
+              </div>
             </li>
           ))}
         </ul>
