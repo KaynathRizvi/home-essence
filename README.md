@@ -56,21 +56,7 @@ npm install
 ```
 
 ### 4️⃣ Database Setup  
-1. Ensure **MySQL** is installed on your system.  
-2. Create a new database in MySQL. Example:  
-   ```sql
-   CREATE DATABASE home_essence_db;
-   ```
-3. Import the provided SQL file into your database:  
-   ```sh
-   mysql -u your_username -p home_essence_db < server/database_schema.sql
-   ```
-   - Replace `your_username` with your MySQL username.  
-   - You'll be prompted to enter your MySQL password.  
-   - This command **loads the database schema** into your MySQL database.  
-
-4. Your database is now ready to use! 🎉  
-
+The database schema for this project is provided in the following SQL file:
 🔗 **[Download SQL File](https://gist.github.com/KaynathRizvi/5582ed86bfe1d092e16c2edb136408b7)**  
 
 ### 5️⃣ Running the Application  
