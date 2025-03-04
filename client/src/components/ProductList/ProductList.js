@@ -17,11 +17,17 @@ const ProductList = ({ addToCart }) => {
     fetch(`${SERVER_URL}/api/products`)
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
+        if (Array.isArray(data)) {
+          setProducts(data);
+        } else {
+          console.error("Fetched data is not an array:", data);
+          setProducts([]); // Ensure products is an array
+        }
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
+        setProducts([]); // Default to an empty array on error
         setLoading(false);
       });
   }, [SERVER_URL]);
