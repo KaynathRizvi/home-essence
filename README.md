@@ -56,7 +56,7 @@ npm install
 ```
 
 ### 4️⃣ Database Setup  
-The database schema for this project is provided in the following SQL file:
+The database schema for this project is provided in the following SQL file: 
 🔗 **[Download SQL File](https://gist.github.com/KaynathRizvi/5582ed86bfe1d092e16c2edb136408b7)**  
 
 ### 5️⃣ Running the Application  
