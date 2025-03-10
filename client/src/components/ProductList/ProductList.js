@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './ProductList.css';
 import { handleAddFavorite, handleAddToCart } from '../ProductCatalog/ProductCatalog';
 
-const ProductList = ({ addToCart }) => {
+const ProductList = ({ }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
