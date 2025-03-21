@@ -86,11 +86,6 @@ The project is deployed on **Render**:
 
 ---
 
-## 📸 Screenshots  
-_(Optional: Add images of your UI using markdown `![Alt Text](image_url)`)_  
-
----
-
 ## 📍 License  
 This project is licensed under the MIT License.  
 📄 [Read Full License](https://opensource.org/licenses/MIT)
